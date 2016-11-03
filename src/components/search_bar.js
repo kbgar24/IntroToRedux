@@ -11,26 +11,33 @@ class SearchBar extends React.Component {
 	constructor(props) {
 		// super references parent class to React.Component. extend proptotype with props;
 		super(props);
-		this.state = { term: 'Starting Value' };
+		this.state = { term: '' };
+
+
 	}
 
-	onInputChange = (event) => {
-		this.setState({ term: event.target.value })
-		console.log(event.target.value);
+	onInputChange(term) {
+		this.setState({term})
+		this.props.onSearchTermChange(term);
 	}
+ 
+
 	
 	render() {
+		
+		let term = this.state.term;
+
 		return (
 			<div className="search-bar">
 				<input 
 					value={this.state.term}
-					onChange={this.onInputChange}
+					onChange={event => this.onInputChange(event.target.value)}
 				/>
 
 				<a
 					className="search-bar-btn"
 					href="#"
-					onChange={this.onInputChange}
+					onClick={this.props.onSearchTermChange(this.state.term)}
 				>
 						<span>
 							<i className="fa fa-search" aria-hidden="true"></i>
